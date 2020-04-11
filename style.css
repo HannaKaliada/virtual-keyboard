@@ -1,88 +1,88 @@
 body {
-    text-align: center;
-    background-color: #E2F6F7;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-around;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  background: #e2f6f7;
 }
 
 .keyboard {
-    margin: 0 auto;
-    /* background: #E0FFFF; */
-    padding: 0 20px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .keyboard__keys {
-    text-align: center;
+  text-align: center;
 }
 
 .keyboard__button {
-    cursor: pointer;
-    text-align: center;
-    font-size: 20px;
-    margin: 0 10px 10px 0;
-    background-color: #A7D9DD;
-    outline: none;
-    border: 0;
-    color: white;
-    vertical-align: middle;
-    border-radius: 3px;
-    transition: 0.2s;
+  margin: 0 10px 10px 0;
+  font-size: 20px;
+  vertical-align: middle;
+  text-align: center;
+  color: white;
+  background: #a7d9dd;
+  border: 0;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .keyboard__button_hover {
-    background-color: #6DA0A5;
+  background: #6da0a5;
 }
 
 .keyboard__button_short {
-    height: 60px;
-    width: 60px;
+  width: 60px;
+  height: 60px;
 }
 
 .keyboard__button_medium {
-    height: 60px;
-    width: 100px;
+  width: 100px;
+  height: 60px;
 }
 
 .keyboard__button_dark {
-    background: #599BA2;
+  background: #599ba2;
 }
 
 .keyboard__button_long {
-    height: 60px;
-    width: 120px;
+  width: 120px;
+  height: 60px;
 }
 
 .keyboard__button_huge {
-    height: 60px;
-    width: 600px;
+  width: 600px;
+  height: 60px;
 }
 
 .keyboard__button_activated {
-    background-color: rgb(145, 21, 5);
+  background: #911505;
 }
 
 .use-keyboard-input {
-    margin: 0 auto;
-    height: 130px;
-    padding: 15px 15px;
-    width: 800px;
-    border: 0;
-    color: #599BA2;
-    font-size: 19px;
-    border-radius: 5px;
+  width: 800px;
+  height: 130px;
+  margin: 0 auto;
+  padding: 15px 15px;
+  font-size: 19px;
+  color: #599ba2;
+  border: 0;
+  border-radius: 5px;
 }
 
 .use-keyboard-input:focus {
-    outline: 2px solid #599BA2;
+  outline: 2px solid #599ba2;
 }
 
 .pressed-key {
-    background: rgb(255, 121, 44);
-    border-radius: 10px;
+  background: #ff792c;
+  border-radius: 10px;
 }
 
 .keyboard__description {
-    color: #599BA2;
+  color: #599ba2;
 }

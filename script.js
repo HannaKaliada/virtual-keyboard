@@ -75,6 +75,27 @@ const Keyboard = {
     '+39': '►',
   },
 
+  keyCodes: {
+    backspaceKeyCode: 8,
+    deleteKeyCode: 46,
+    shiftKeyCode: 16,
+    enterKeyCode: 13,
+    tabKeyCode: 9,
+    spaceKeyCode: 32,
+    altKeyCode: 18,
+    ctrlKeyCode: 17,
+    leftArrowKeyCode: 37,
+    rightArrowKeyCode: 39,
+    capsLockKeyCode: 20,
+  },
+
+  languageIndexes: {
+    englishLetters: 0,
+    russianLetters: 1,
+    englishSymbols: 2,
+    russianSymbols: 3,
+  },
+
   init() {
     // create main elements
     this.elements.main = document.createElement('div');
@@ -115,12 +136,12 @@ const Keyboard = {
       // add text to button
       if (localStorage.isEnglish === 'true') {
         if (this.keyLayout[key] instanceof Array) {
-          keyElement.textContent = this.keyLayout[key][0];
+          keyElement.textContent = this.keyLayout[key][this.languageIndexes.englishLetters];
         } else {
           keyElement.textContent = this.keyLayout[key];
         }
       } else if (this.keyLayout[key] instanceof Array) {
-        keyElement.textContent = this.keyLayout[key][1];
+        keyElement.textContent = this.keyLayout[key][this.languageIndexes.russianLetters];
       } else {
         keyElement.textContent = this.keyLayout[key];
       }
@@ -207,7 +228,7 @@ const Keyboard = {
 
         // add content
         switch (event.keyCode) {
-          case 8: // if backspace
+          case this.keyCodes.backspaceKeyCode: // if backspace
             currentCaret = textarea.selectionStart;
 
             firstPartOfString = this.properties.value.substr(0, textarea.selectionStart - 1);
@@ -225,7 +246,7 @@ const Keyboard = {
 
             break;
 
-          case 46: // if delete
+          case this.keyCodes.deleteKeyCode: // if delete
             currentCaret = textarea.selectionStart;
 
             firstPartOfString = this.properties.value.substr(0, textarea.selectionStart);
@@ -242,7 +263,7 @@ const Keyboard = {
 
             break;
 
-          case 16: // if shift
+          case this.keyCodes.shiftKeyCode: // if shift
 
             // prevent code from repeating
             if (event.repeat !== undefined) {
@@ -259,7 +280,7 @@ const Keyboard = {
 
             break;
 
-          case 13: // if enter
+          case this.keyCodes.enterKeyCode: // if enter
             currentCaret = textarea.selectionStart;
 
             this.addKeyValueToTextarea('\n');
@@ -270,7 +291,7 @@ const Keyboard = {
 
             break;
 
-          case 9: // if tab
+          case this.keyCodes.tabKeyCode: // if tab
             currentCaret = textarea.selectionStart;
 
             this.addKeyValueToTextarea('  ');
@@ -281,7 +302,7 @@ const Keyboard = {
 
             break;
 
-          case 32: // if space
+          case this.keyCodes.spaceKeyCode: // if space
             currentCaret = textarea.selectionStart;
 
             this.addKeyValueToTextarea(' ');
@@ -292,12 +313,12 @@ const Keyboard = {
 
             break;
 
-          case 18: // if alt or ctrl
-          case 17:
+          case this.keyCodes.altKeyCode: // if alt or ctrl
+          case this.keyCodes.ctrlKeyCode:
 
             break;
 
-          case 37: // if left arrow
+          case this.keyCodes.leftArrowKeyCode: // if left arrow
 
             // move caret
             textarea.selectionStart -= 1;
@@ -305,7 +326,7 @@ const Keyboard = {
 
             break;
 
-          case 39: // if right arrow
+          case this.keyCodes.rightArrowKeyCode: // if right arrow
 
             // move caret
             textarea.selectionStart += 1;
@@ -313,7 +334,7 @@ const Keyboard = {
 
             break;
 
-          case 20: // if caps lock
+          case this.keyCodes.capsLockKeyCode: // if caps lock
 
             // prevent code from repeating
             if (event.repeat !== undefined) {
@@ -326,7 +347,7 @@ const Keyboard = {
             this.toggleCapsLock();
 
             // add active class to caps lock button
-            document.querySelector('[key-code-20]').classList.toggle('keyboard__button_activated', this.properties.capsLock);
+            document.querySelector(`[key-code-${this.keyCodes.capsLockKeyCode}]`).classList.toggle('keyboard__button_activated', this.properties.capsLock);
 
             break;
 
@@ -366,7 +387,7 @@ const Keyboard = {
         key.classList.remove('pressed-key');
 
         // if shift
-        if (event.keyCode === 16) {
+        if (event.keyCode === this.keyCodes.shiftKeyCode) {
           // change register
           this.toggleCapsLock();
 
@@ -389,7 +410,7 @@ const Keyboard = {
       textarea.focus();
 
       if (event.target.classList.contains('keyboard__button')) {
-        if (event.target.hasAttribute('key-code-8')) { // if backspace click
+        if (event.target.hasAttribute(`key-code-${this.keyCodes.backspaceKeyCode}`)) { // if backspace click
           currentCaret = textarea.selectionStart;
 
           firstPartOfString = this.properties.value.substr(0, textarea.selectionStart - 1);
@@ -403,7 +424,7 @@ const Keyboard = {
           // move caret
           textarea.selectionStart = currentCaret - 1;
           textarea.selectionEnd = textarea.selectionStart;
-        } else if (event.target.hasAttribute('key-code-46')) { // if delete
+        } else if (event.target.hasAttribute(`key-code-${this.keyCodes.deleteKeyCode}`)) { // if delete
           currentCaret = textarea.selectionStart;
 
           firstPartOfString = this.properties.value.substr(0, textarea.selectionStart);
@@ -417,8 +438,8 @@ const Keyboard = {
           // move caret
           textarea.selectionStart = currentCaret;
           textarea.selectionEnd = textarea.selectionStart;
-        } else if (event.target.hasAttribute('key-code-20')) { // if caps lock click
-          const shift = document.querySelector('[key-code-16]');
+        } else if (event.target.hasAttribute(`key-code-${this.keyCodes.capsLockKeyCode}`)) { // if caps lock click
+          const shift = document.querySelector(`[key-code-${this.keyCodes.shiftKeyCode}]`);
 
           // change register
           this.toggleCapsLock();
@@ -429,7 +450,7 @@ const Keyboard = {
           } else {
             event.target.classList.toggle('keyboard__button_activated', this.properties.capsLock);
           }
-        } else if (event.target.hasAttribute('key-code-13')) { // if enter
+        } else if (event.target.hasAttribute(`key-code-${this.keyCodes.enterKeyCode}`)) { // if enter
           currentCaret = textarea.selectionStart;
 
           this.addKeyValueToTextarea('\n');
@@ -437,7 +458,7 @@ const Keyboard = {
           // move caret
           textarea.selectionStart = currentCaret + 1;
           textarea.selectionEnd = textarea.selectionStart;
-        } else if (event.target.hasAttribute('key-code-9')) { // if tab
+        } else if (event.target.hasAttribute(`key-code-${this.keyCodes.tabKeyCode}`)) { // if tab
           currentCaret = textarea.selectionStart;
 
           this.addKeyValueToTextarea('  ');
@@ -445,7 +466,7 @@ const Keyboard = {
           // move caret
           textarea.selectionStart = currentCaret + 2;
           textarea.selectionEnd = textarea.selectionStart;
-        } else if (event.target.hasAttribute('key-code-32')) { // if space
+        } else if (event.target.hasAttribute(`key-code-${this.keyCodes.spaceKeyCode}`)) { // if space
           currentCaret = textarea.selectionStart;
 
           this.addKeyValueToTextarea(' ');
@@ -453,25 +474,25 @@ const Keyboard = {
           // move caret
           textarea.selectionStart = currentCaret + 1;
           textarea.selectionEnd = textarea.selectionStart;
-        } else if (event.target.hasAttribute('key-code-37')) { // if left arrow
+        } else if (event.target.hasAttribute(`key-code-${this.keyCodes.leftArrowKeyCode}`)) { // if left arrow
           // move caret
           textarea.selectionStart -= 1;
           textarea.selectionEnd = textarea.selectionStart;
-        } else if (event.target.hasAttribute('key-code-39')) { // if right arrow
+        } else if (event.target.hasAttribute(`key-code-${this.keyCodes.rightArrowKeyCode}`)) { // if right arrow
           // move caret
           textarea.selectionStart += 1;
           textarea.selectionEnd = textarea.selectionStart;
-        } else if (event.target.hasAttribute('key-code-18')) { // if alt
+        } else if (event.target.hasAttribute(`key-code-${this.keyCodes.altKeyCode}`)) { // if alt
           // if alt pressed when shift pressed
-          if (document.querySelector('[key-code-16]').classList.contains('pressed-key')) {
+          if (document.querySelector(`[key-code-${this.keyCodes.shiftKeyCode}]`).classList.contains('pressed-key')) {
             // change language
             this.switchLanguage();
             this.toggleCapsLock();
-            document.querySelector('[key-code-16]').classList.remove('pressed-key');
+            document.querySelector(`[key-code-${this.keyCodes.shiftKeyCode}]`).classList.remove('pressed-key');
           }
-        } else if (!event.target.hasAttribute('key-code-16')
-                        && !event.target.hasAttribute('key-code-18')
-                        && !event.target.hasAttribute('key-code-17')) {
+        } else if (!event.target.hasAttribute(`key-code-${this.keyCodes.shiftKeyCode}`)
+          && !event.target.hasAttribute(`key-code-${this.keyCodes.altKeyCode}`)
+          && !event.target.hasAttribute(`key-code-${this.keyCodes.ctrlKeyCode}`)) {
           let keyValue;
           currentCaret = textarea.selectionStart;
 
@@ -511,7 +532,7 @@ const Keyboard = {
         event.target.classList.remove('keyboard__button_hover');
 
         // remove button press animation when button pressed and then mouse moved out
-        if (!event.target.hasAttribute('key-code-16')) {
+        if (!event.target.hasAttribute(`key-code-${this.keyCodes.shiftKeyCode}`)) {
           event.target.classList.remove('pressed-key');
         }
       }
@@ -539,7 +560,7 @@ const Keyboard = {
 
   // change register and show symbols when shift pressed
   handleShiftMouseDown() {
-    const shift = document.querySelector('[key-code-16]');
+    const shift = document.querySelector(`[key-code-${this.keyCodes.shiftKeyCode}]`);
 
     shift.addEventListener('mousedown', () => {
       if (!shift.classList.contains('pressed-key')) {
@@ -553,7 +574,7 @@ const Keyboard = {
 
   // change register and hide symbols when shift unpressed
   handleShiftMouseUp() {
-    const shift = document.querySelector('[key-code-16]');
+    const shift = document.querySelector(`[key-code-${this.keyCodes.shiftKeyCode}]`);
 
     shift.addEventListener('mouseup', () => {
       this.toggleCapsLock();
@@ -572,7 +593,8 @@ const Keyboard = {
       pressedKeys.add(event.keyCode);
 
       // change when alt and shift pressed
-      if (pressedKeys.has(16) && pressedKeys.has(18)) {
+      if (pressedKeys.has(this.keyCodes.shiftKeyCode)
+      && pressedKeys.has(this.keyCodes.altKeyCode)) {
         this.switchLanguage();
         pressedKeys.clear();
       }
@@ -592,7 +614,7 @@ const Keyboard = {
 
       // check if key of keyLayout object is an array
       if (this.keyLayout[`+${button.getAttribute('key-code')}`] instanceof Array
-                      && this.keyLayout[`+${button.getAttribute('key-code')}`].length > 2) {
+        && this.keyLayout[`+${button.getAttribute('key-code')}`].length > 2) {
         keyboardButton.textContent = this.keyLayout[`+${button.getAttribute('key-code')}`][index];
       }
     });
@@ -602,18 +624,18 @@ const Keyboard = {
   showSymbolsWhenShiftPressed() {
     // check language
     if (localStorage.isEnglish === 'true') { // if english
-      this.showSymbolsDueToLanguage(2);
+      this.showSymbolsDueToLanguage(this.languageIndexes.englishSymbols);
     } else { // if russian
-      this.showSymbolsDueToLanguage(3);
+      this.showSymbolsDueToLanguage(this.languageIndexes.russianSymbols);
     }
   },
 
   // hide symbols and show initial value of keys
   hideSymbolsWhenShiftUnpressed() {
-    if (localStorage.isEnglish === 'true') { // if english
-      this.showKeysDueToLanguageAndRegister(0);
-    } else { // if russian
-      this.showKeysDueToLanguageAndRegister(1);
+    if (localStorage.isEnglish === 'true') {
+      this.showKeysDueToLanguageAndRegister(this.languageIndexes.englishLetters);
+    } else {
+      this.showKeysDueToLanguageAndRegister(this.languageIndexes.russianLetters);
     }
   },
 
@@ -634,11 +656,11 @@ const Keyboard = {
     if (localStorage.isEnglish === 'true') {
       localStorage.isEnglish = 'false'; // change to russian
 
-      this.showKeysDueToLanguageAndRegister(1);
+      this.showKeysDueToLanguageAndRegister(this.languageIndexes.russianLetters);
     } else {
       localStorage.isEnglish = 'true'; // change to english
 
-      this.showKeysDueToLanguageAndRegister(0);
+      this.showKeysDueToLanguageAndRegister(this.languageIndexes.englishLetters);
     }
   },
 
