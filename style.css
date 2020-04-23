@@ -1,0 +1,88 @@
+body {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  background: #e2f6f7;
+}
+
+.keyboard {
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.keyboard__keys {
+  text-align: center;
+}
+
+.keyboard__button {
+  margin: 0 10px 10px 0;
+  font-size: 20px;
+  vertical-align: middle;
+  text-align: center;
+  color: white;
+  background: #a7d9dd;
+  border: 0;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.keyboard__button_hover {
+  background: #6da0a5;
+}
+
+.keyboard__button_short {
+  width: 60px;
+  height: 60px;
+}
+
+.keyboard__button_medium {
+  width: 100px;
+  height: 60px;
+}
+
+.keyboard__button_dark {
+  background: #599ba2;
+}
+
+.keyboard__button_long {
+  width: 120px;
+  height: 60px;
+}
+
+.keyboard__button_huge {
+  width: 600px;
+  height: 60px;
+}
+
+.keyboard__button_activated {
+  background: #911505;
+}
+
+.use-keyboard-input {
+  width: 800px;
+  height: 130px;
+  margin: 0 auto;
+  padding: 15px 15px;
+  font-size: 19px;
+  color: #599ba2;
+  border: 0;
+  border-radius: 5px;
+}
+
+.use-keyboard-input:focus {
+  outline: 2px solid #599ba2;
+}
+
+.pressed-key {
+  background: #ff792c;
+  border-radius: 10px;
+}
+
+.keyboard__description {
+  color: #599ba2;
+}
