@@ -4,19 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./**/*.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HannaKaliada/virtual-keyboard.git"
+    "url": "git+https://github.com/HannaKaleda/virtual-keyboard.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/HannaKaliada/virtual-keyboard/issues"
+    "url": "https://github.com/HannaKaleda/virtual-keyboard/issues"
   },
-  "homepage": "https://github.com/HannaKaliada/virtual-keyboard#readme",
+  "homepage": "https://github.com/HannaKaleda/virtual-keyboard#readme",
   "devDependencies": {
     "csscomb": "^4.3.0",
     "eslint": "^6.8.0",
